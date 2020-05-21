@@ -1,13 +1,14 @@
+import model.ExpandForm;
+import model.Frame;
+import model.MainForm;
+
 import javax.swing.*;
-import java.awt.*;
 
 public class Main {
     public static void main(String[] args) {
-        JFrame frame = new JFrame();
-        frame.setSize(600, 200);
-
-        frame.add(new MainForm().getMainPanel());
-
+        var frame = Frame.getFrame();
+        frame.setSize(500, 170);
+        frame.setContentPane(new MainForm().getMainPanel());
         frame.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
         frame.setLocationRelativeTo(null);
         frame.setVisible(true);

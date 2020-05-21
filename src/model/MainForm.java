@@ -1,9 +1,11 @@
+package model;
+
 import javax.swing.*;
 import java.awt.event.*;
 
 public class MainForm {
+    private static ExpandForm expandForm = new ExpandForm();
     private JPanel mainPanel;
-    private JButton expandButton;
     private JButton collapseButton;
     private JTextField surnameTextField;
     private JTextField firstnameTextField;
@@ -12,23 +14,16 @@ public class MainForm {
     private JPanel buttonsPanel;
     private JPanel namedPanel;
     private JPanel centralPanel;
-    private JLabel fullNameLabel;
 
     public MainForm() {
-        expandButton.setVisible(false);
-        namedPanel.setVisible(false);
-
         collapseButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
                 if (hasAllTextFields()) {
                     // after collapse button is pressed
-                    collapseButton.setVisible(false);
-                    expandButton.setVisible(true);
-
-                    collapsePanel.setVisible(false);
-                    namedPanel.setVisible(true);
-                    fullNameLabel.setText(getFullName());
+                    mainPanel.setVisible(false);
+                    expandForm.setText(getFullName());
+                    Frame.getFrame().setContentPane(expandForm.getMainPanel());
                 }else {
                     JOptionPane.showMessageDialog(getMainPanel(),
                             "Введены не все данные",
@@ -37,27 +32,15 @@ public class MainForm {
                 }
             }
         });
-
-        expandButton.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                // after expand button is pressed
-                collapseButton.setVisible(true);
-                expandButton.setVisible(false);
-
-                collapsePanel.setVisible(true);
-                namedPanel.setVisible(false);
-            }
-        });
     }
 
     public JPanel getMainPanel() {
+        mainPanel.setVisible(true);
         return mainPanel;
     }
 
     private Boolean hasAllTextFields() {
         if (firstnameTextField.getText().length() == 0
-                || secondnameTextField.getText().length() == 0
                 || surnameTextField.getText().length() == 0) {
             return false;
         }
